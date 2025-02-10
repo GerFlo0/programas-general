@@ -1,8 +1,10 @@
+#parametros
 #4 varillas por columna
 #anillo cada 10 cm
 
-#entrada numero de columnas y altura de los muros
-#cuantas varillas ocupare, cuantos metros y cuantos anillos
+#entrada: numero de columnas y altura de los muros
+
+#Salida: cuantas varillas ocupare, cuantos metros y cuantos anillos
 
 #constantes
 RING_SPACE = 0.1
