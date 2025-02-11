@@ -28,8 +28,6 @@ floor_volume = floor_area * FLOOR_HEIGHT
 
 materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER.keys(), MATERIALS_PER_CUB_METER.values()))}
 
-
-
 #salida
 print(f"""Para este piso de {floor_area} metros cuadrados ({floor_volume} metros cubicos) se necesitaran los siguientes materiales
     Cemento: {"{:.2f}".format(materials_total['cement'])} bultos de 50kg
