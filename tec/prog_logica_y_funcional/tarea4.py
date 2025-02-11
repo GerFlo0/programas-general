@@ -27,14 +27,8 @@ floor_area = floor["length"] * floor["width"]
 floor_volume = floor_area * FLOOR_HEIGHT
 
 materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER.keys(), MATERIALS_PER_CUB_METER.values()))}
-""" 
-materials_total - {
-    "cement" : MATERIALS_PER_CUB_METER["cement"]*floor_volume,
-    "sand" : MATERIALS_PER_CUB_METER["sand"]*floor_volume,
-    "gravel" : MATERIALS_PER_CUB_METER["gravel"]*floor_volume,
-    "water" : MATERIALS_PER_CUB_METER["water"]*floor_volume
-}
-"""
+
+
 
 #salida
 print(f"""Para este piso de {floor_area} metros cuadrados ({floor_volume} metros cubicos) se necesitaran los siguientes materiales
