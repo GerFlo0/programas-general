@@ -1,5 +1,4 @@
 import os
-import platform
 import msvcrt
 
 #CONSTANTS
@@ -35,12 +34,8 @@ MATERIALS_PER_CUB_METER = {
 }
 
 BLOCKS_PER_CUB_METER = 1 / ( (BLOCK["lenght"] + JOINT["lenght"]) * (BLOCK["height"] + JOINT["height"]) )
-print(BLOCKS_PER_CUB_METER)
 
 #FUNCTIONS
-
-def clear_terminal():
-    os.system('cls')
 
 def area(x = 0, y = 0):
     return x * y
@@ -96,7 +91,6 @@ def prog_4 ():
         "length" : float(input("Ingrese el largo del piso: ")),
         "width" : float(input("Ingrese el ancho del piso: "))
     }
-    
     floor_area = area(floor["length"], floor["width"])
     floor_volume = volume(floor_area, FLOOR_HEIGHT)
     materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER.keys(), MATERIALS_PER_CUB_METER.values()))}
@@ -113,7 +107,6 @@ def prog_5 ():
         "length" : float(input("Ingrese el ancho del cuarto: ")),
         "width" : float(input("Ingrese el frente del cuarto: "))
     }
-    
     floor_area = roof["length"] * roof["width"]
     floor_volume = floor_area * ROOF_HEIGHT
     materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER.keys(), MATERIALS_PER_CUB_METER.values()))}
@@ -138,6 +131,47 @@ def prog_6 ():
     
     return f"\nPara este cuarto de {walls_area:.2f} metros cuadrados se ocupan {blocks_total:.2f} blocks"
 
+def prog_7 ():
+    room = {
+        "width" : float(input("Ingrese el ancho del frente: ")),
+        "lenght" : float(input("Ingrese el ancho del lateral: ")),
+        "height" : float(input("Ingrese la altura del cuarto: "))
+    }
+    
+    holes = {
+        "door" : {
+            "width" : float(input("Ingrese el ancho de la puerta: ")),
+            "height" : float(input("Ingrese la altura de la puerta: "))
+        },
+        "window1" : {
+            "width" : float(input("Ingrese el ancho de la ventana izq: ")),
+            "height" : float(input("Ingrese la altura de la ventana izq: "))
+        },
+        "window2" : {
+            "width" : float(input("Ingrese el ancho de la ventana der: ")),
+            "height" : float(input("Ingrese la altura de la ventana der: "))
+        },
+        "window3" : {
+            "width" : float(input("Ingrese el ancho de la ventana tra: ")),
+            "height" : float(input("Ingrese la altura de la ventana tra: "))
+        }
+    }
+    
+    #Formula
+    walls_area_no_holes = 2 * (room["width"] * room["height"]) + 2 * (room["lenght"] * room["height"])
+    holes_area = {
+        "door" : holes["door"]["width"] * holes["door"]["height"],
+        "window1" : holes["window1"]["width"] * holes["window1"]["height"],
+        "window2" : holes["window2"]["width"] * holes["window2"]["height"],
+        "window3" : holes["window3"]["width"] * holes["window3"]["height"]
+    }
+    
+    sum_holes_area = sum(holes_area.values())
+    walls_area = walls_area_no_holes - sum_holes_area
+    blocks_total = ( walls_area ) / ( (BLOCK["lenght"] + JOINT["lenght"]) * (BLOCK["height"] + JOINT["height"]) )
+    
+    return(f"Para este cuarto de {walls_area:.2f} metros cuadrados se ocupan {blocks_total:.2f} blocks")
+
 def menu():
     print("""
     PROGRAMAS DE CONSTRUCCIÓN
@@ -147,7 +181,8 @@ def menu():
     4. Piso
     5. Techo
     6. Cuarto
-    7. Salir
+    7. Cuarto+
+    8. Salir
     """)
 
 def execute_option(option):
@@ -157,12 +192,13 @@ def execute_option(option):
         "3": prog_3,
         "4": prog_4,
         "5": prog_5,
-        "6": prog_6
+        "6": prog_6,
+        "7": prog_7
     }
     
     if option in options:
         print(options[option]())
-    elif option == "7":
+    elif option == "8":
         return False
     else:
         print("Opción no válida")
@@ -170,7 +206,7 @@ def execute_option(option):
 
 #MAIN
 while True:
-    clear_terminal()
+    os.system('cls')
     menu()
     option = input("Seleccione una opción: ")
     if not execute_option(option):
