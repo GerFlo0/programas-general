@@ -1,38 +1,40 @@
-#cuatro paredes
-#pared 1 normal
-#pared 2 y 3 una ventana cada una
-#pared 4 una puerta
-#medidas de la puerta 1 x 1.9 m
-#ventanas largo 1.2m ancho 1.5m
+#material para el techo de una casa
 
-#Entradas
+#constantes
+#espesor del techo 0.1m
+#para cada m3 de concreto se ocupa 350kg de cemento, 0.56m3 de arena, 0.84m3 de grava,  180 L de agua
+
+#entradas
 #ancho del frente
-#lateral
-#altura
+#ancho del lateral
+
+#salida
+#material para el techo
 
 #Constantes
-BLOCK = {
-    "lenght" : 0.39,
-    "height" : 0.2
-}
-JOINT = {
-    "lenght" : 0.01,
-    "height" : 0.015
-}
-DOOR_AREA = (1 * 1.9)
-WINDOW_AREA = (1.2 * 1.5)
-
-#Variables
-room = {
-    "width" : float(input("Ingrese el ancho del frente: ")),
-    "lenght" : float(input("Ingrese el ancho del lateral: ")),
-    "height" : float(input("Ingrese la altura del cuarto: "))
+ROOF_HEIGHT = 0.1
+MATERIALS_PER_CUB_METER = {
+    "cement" : 350/50,
+    "sand" : 0.56,
+    "gravel" : 0.84,
+    "water" : 180
 }
 
-#Formula
-walls_area_no_holes = 2 * (room["width"] * room["height"]) + 2 * (room["lenght"] * room["height"])
-walls_area = walls_area_no_holes - (DOOR_AREA + 2 * WINDOW_AREA)
+#variables
+roof = {
+    "length" : float(input("Ingrese el ancho del cuarto: ")),
+    "width" : float(input("Ingrese el frente del cuarto: "))
+}
 
-blocks_total = ( walls_area ) / ( (BLOCK["lenght"] + JOINT["lenght"]) * (BLOCK["height"] + JOINT["height"]) )
+floor_area = roof["length"] * roof["width"]
+floor_volume = floor_area * ROOF_HEIGHT
 
-print(f"Para este cuarto de {"{:.2f}".format(walls_area)} metros cuadrados se ocupan {"{:.2f}".format(blocks_total)} blocks")
+materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER.keys(), MATERIALS_PER_CUB_METER.values()))}
+
+#salida
+
+print(f"""Para este techo de {floor_area} metros cuadrados se necesitaran los siguientes materiales
+    Cemento: {materials_total['cement']:.2f} bultos de 50kg ()
+    Arena: {materials_total['sand']:.2f} metros cubicos
+    Grava: {materials_total['gravel']:.2f} metros cubicos
+    Agua: {materials_total['water']:.2f} litros""")

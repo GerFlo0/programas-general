@@ -32,6 +32,6 @@ area_win_2 = win_2["width"] * win_2["height"]
 Cl = (area_wall - area_win_1 - area_win_2) / ( (BLOCK_WIDTH+JOINT_WIDTH) * (BLOCK_HEIGHT+JOINT_HEIGHT) )
 
 
-print("{:.2f}".format(Cl))
+print(f"{Cl:.2f}")
 
 #datos de ejemplo 18 M de ancho por 2.7 de alto

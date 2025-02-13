@@ -30,7 +30,7 @@ materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER
 
 #salida
 print(f"""Para este piso de {floor_area} metros cuadrados ({floor_volume} metros cubicos) se necesitaran los siguientes materiales
-    Cemento: {"{:.2f}".format(materials_total['cement'])} bultos de 50kg
-    Arena: {"{:.2f}".format(materials_total['sand'])} metros cubicos
-    Grava: {"{:.2f}".format(materials_total['gravel'])} metros cubicos
-    Agua: {"{:.2f}".format(materials_total['water'])} litros""")
+    Cemento: {materials_total['cement']:.2f} bultos de 50kg
+    Arena: {materials_total['sand']:.2f} metros cubicos
+    Grava: {materials_total['gravel']:.2f} metros cubicos
+    Agua: {materials_total['water']:.2f} litros""")

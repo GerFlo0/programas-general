@@ -1,39 +1,36 @@
-#material para el techo de una casa
-
-#constantes
-#espesor del techo 0.1m
-#para cada m3 de concreto se ocupa 350kg de cemento, 0.56m3 de arena, 0.84m3 de grava,  180 L de agua
-
-#entradas
+#cuatro paredes
+#pared 1 normal
+#pared 2 y 3 una ventana cada una
+#pared 4 una puerta
+#medidas de la puerta 1 x 1.9 m
+#ventanas largo 1.2m ancho 1.5ms
+#Entradas
 #ancho del frente
-#ancho del lateral
-
-#salida
-#material para el techo
+#lateral
+#altura
 
 #Constantes
-ROOF_HEIGHT = 0.1
-MATERIALS_PER_CUB_METER = {
-    "cement" : 350/50,
-    "sand" : 0.56,
-    "gravel" : 0.84,
-    "water" : 180
+BLOCK = {
+    "lenght" : 0.39,
+    "height" : 0.2
+}
+JOINT = {
+    "lenght" : 0.01,
+    "height" : 0.015
+}
+DOOR_AREA = (1 * 1.9)
+WINDOW_AREA = (1.2 * 1.5)
+
+#Variables
+room = {
+    "width" : float(input("Ingrese el ancho del frente: ")),
+    "lenght" : float(input("Ingrese el ancho del lateral: ")),
+    "height" : float(input("Ingrese la altura del cuarto: "))
 }
 
-#variables
-roof = {
-    "length" : float(input("Ingrese el ancho del cuarto: ")),
-    "width" : float(input("Ingrese el frente del cuarto: "))
-}
+#Formula
+walls_area_no_holes = 2 * (room["width"] * room["height"]) + 2 * (room["lenght"] * room["height"])
+walls_area = walls_area_no_holes - (DOOR_AREA + 2 * WINDOW_AREA)
+blocks_total = ( walls_area ) / ( (BLOCK["lenght"] + JOINT["lenght"]) * (BLOCK["height"] + JOINT["height"]) )
 
-floor_area = roof["length"] * roof["width"]
-floor_volume = floor_area * ROOF_HEIGHT
-
-materials_total = {k: v*floor_volume for k,v in list(zip(MATERIALS_PER_CUB_METER.keys(), MATERIALS_PER_CUB_METER.values()))}
-
-#salida
-print(f"""Para este techo de {floor_area} metros cuadrados se necesitaran los siguientes materiales
-    Cemento: {"{:.2f}".format(materials_total['cement'])} bultos de 50kg
-    Arena: {"{:.2f}".format(materials_total['sand'])} metros cubicos
-    Grava: {"{:.2f}".format(materials_total['gravel'])} metros cubicos
-    Agua: {"{:.2f}".format(materials_total['water'])} litros""")
+print(f"Para este cuarto de {walls_area:.2f} metros cuadrados se ocupan {blocks_total:.2f} blocks")

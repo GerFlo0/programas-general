@@ -20,6 +20,6 @@ wall_area = wall["lenght"] * wall["height"]
 blocks_total = ( wall_area ) / ( (BLOCK["lenght"] + JOINT["lenght"]) * (BLOCK["height"] + JOINT["height"]) )
 
 
-print(f"Para este muro de {wall_area} metros cuadrados se ocupan {"{:.2f}".format(blocks_total)} blocks")
+print(f"Para este muro de {wall_area} metros cuadrados se ocupan {blocks_total:.2f} blocks")
 
 #datos de ejemplo 18 M de ancho por 2.7 de alto

@@ -23,5 +23,5 @@ ring_amount = ring_per_column * columns
 #Salida
 print(f"""Para esta construccion se ocuparan los siguientes materiales
     Varillas: {rod_amount}
-    Metros de varillaa: {"{:.2f}".format(rod_meters)}
+    Metros de varillaa: {rod_meters:.2f}
     Cantidad de anillos: {ring_amount}""")
