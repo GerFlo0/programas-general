@@ -211,5 +211,5 @@ while True:
     option = input("Seleccione una opción: ")
     if not execute_option(option):
         break
-    print("Presione cualquier tecla para continuar...")
+    print("\nPresione cualquier tecla para continuar...")
     msvcrt.getch()
