@@ -165,7 +165,6 @@ def prog_7 ():
         "window2" : holes["window2"]["width"] * holes["window2"]["height"],
         "window3" : holes["window3"]["width"] * holes["window3"]["height"]
     }
-    
     sum_holes_area = sum(holes_area.values())
     walls_area = walls_area_no_holes - sum_holes_area
     blocks_total = ( walls_area ) / ( (BLOCK["lenght"] + JOINT["lenght"]) * (BLOCK["height"] + JOINT["height"]) )
@@ -173,8 +172,7 @@ def prog_7 ():
     return(f"Para este cuarto de {walls_area:.2f} metros cuadrados se ocupan {blocks_total:.2f} blocks")
 
 def menu():
-    print("""
-    PROGRAMAS DE CONSTRUCCIÓN
+    print("""\nPROGRAMAS DE CONSTRUCCIÓN
     1. Muro
     2. Muro con ventanas
     3. Columnas
