@@ -172,7 +172,9 @@ def prog_7 ():
     return(f"Para este cuarto de {walls_area:.2f} metros cuadrados se ocupan {blocks_total:.2f} blocks")
 
 def menu():
-    print("""\nPROGRAMAS DE CONSTRUCCIÓN
+    print("""\n---------------------------
+|PROGRAMAS DE CONSTRUCCIÓN|
+---------------------------
     1. Muro
     2. Muro con ventanas
     3. Columnas
