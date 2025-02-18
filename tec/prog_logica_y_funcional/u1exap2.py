@@ -14,6 +14,8 @@
 #area de las paredes
 #cantidad de blocks necesarios
 
+import os
+os.system('cls')
 
 #Constantes
 BLOCK = {
