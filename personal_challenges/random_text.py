@@ -13,7 +13,6 @@ def generate_random_text(length = int):
     characters += string.ascii_uppercase
     characters += string.punctuation
     characters += string.digits
-    characters = mix_string(characters)
     
     for i in range(length):
         text += random.choice(characters)
