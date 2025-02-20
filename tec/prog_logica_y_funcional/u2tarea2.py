@@ -1,7 +1,9 @@
+#precio del litro de diesel $26.00
+#Agregar costo del viaje en pesos mexicanos
+
 #calculo de distancias
 #haciendo x numero de corridas a cada destino desde san luis, cuantos km recorre en total
 # y cuantos litros de diesel se consumen en cada conjunto de corridas
-#para el jueves 20 de febrero
 
 import tkinter as tk
 from PIL import Image, ImageTk
@@ -13,6 +15,7 @@ RUTAS = {
     "Puerto Vallarta": {"KM": 624, "L": 178},
     "Merida": {"KM": 1700, "L": 486}}
 TANK = 500
+COST_PER_L = 26
 WINDOW_SIZE = "650x350"
 
 # Crear la ventana principal
@@ -57,8 +60,9 @@ def calc_results():
             if entry != 0:
                 total_km = entry * RUTAS[ruta]["KM"]
                 total_l = entry * RUTAS[ruta]["L"]
+                total_cost = total_l * COST_PER_L
                 total_t = total_l / TANK
-                lbls["results"][i].config(text=f"{total_km} km, {total_l} L")
+                lbls["results"][i].config(text=f"{total_km} km,   {total_l} L,   ${total_cost:,.2f},   {total_t:.2f} T")
         except ValueError:
             print(f"Error en campo '{ruta}'")
 

@@ -14,7 +14,7 @@ empty_positions = [
 
 turn = 'X'
 
-def draw_board (matrix = numpy.ndarray):
+def draw_board ():
     os.system('cls')
     print('\n')
     print(f"  {matrix[2][0]}  |  {matrix[2][1]}  |  {matrix[2][2]}  3")
@@ -33,7 +33,8 @@ def next_turn():
     else: turn = 'X'
 
 def is_win():
-    return None
+    return False
+
 def delete_empty_position(pos = tuple):
     empty_positions.remove(pos)
 
@@ -46,6 +47,9 @@ def is_valid_input(input = tuple):
     if not str(input[1]).isdigit: return False
     return True
 
-def input_to_position(input = tuple):
+def input_to_position(input = str):
     return (int(input[1]) - 1, ord(input[0]) - 97)
 
+user_position = input_to_position(input('Choose a position: '))
+print(user_position)
+print(is_valid_input(user_position))
