@@ -39,36 +39,82 @@ label_imagen.image = photo
 label_imagen.place(relx=0.5, rely=0.5, anchor="center")
 
 # Crear etiquetas y campos de entrada
-lbls = {"routes": [], "entries":[], "results":[]}
+lbls = {
+    "headers": {
+        "ruta": tk.Label(root, text="Ruta"),
+        "corridas": tk.Label(root, text="Corridas"),
+        "km": tk.Label(root, text="Km"),
+        "L": tk.Label(root, text="L"),
+        "cost": tk.Label(root, text="Costo"),
+        "tanks": tk.Label(root, text="Tanques")
+        },
+    "routes": [], 
+    "entries":[], 
+    "results":{
+        "km": [],
+        "L": [],
+        "cost": [],
+        "tanks": [],
+        },
+    "totals":{
+        "km": tk.Label(root, text=""),
+        "L": tk.Label(root, text=""),
+        "cost": tk.Label(root, text=""),
+        "tanks": tk.Label(root, text="")
+        }
+    }
+
+for i, header in enumerate(lbls["headers"].keys()):
+    lbls["headers"][header].place(x=340+i*65, y=20)
 
 for i, ruta in enumerate(RUTAS.keys()):
-    lbls["routes"].append(tk.Label(root, text=f"SLP a {ruta}"))
-    lbls["routes"][i].place(x=330, y=i * 30)
+    lbls["routes"].append(tk.Label(root, text=ruta))
+    lbls["entries"].append(tk.Entry(root, width=3))
+    lbls["results"]["km"].append(tk.Label(root, text=""))
+    lbls["results"]["L"].append(tk.Label(root, text=""))
+    lbls["results"]["cost"].append(tk.Label(root, text=""))
+    lbls["results"]["tanks"].append(tk.Label(root, text=""))
     
-    lbls["entries"].append(tk.Entry(root, width=5))
-    lbls["entries"][i].place(x=450, y=i * 30)
+    lbls["routes"][i].place(x=330, y=50+i*30)
+    lbls["entries"][i].place(x=420, y=50+i*30)
+    lbls["results"]["km"][i].place(x=460, y=50+i*30)
+    lbls["results"]["L"][i].place(x=530, y=50+i*30)
+    lbls["results"]["cost"][i].place(x=600, y=50+i*30)
+    lbls["results"]["tanks"][i].place(x=670, y=50+i*30)
     
-    lbls["results"].append(tk.Label(root, text=""))
-    lbls["results"][i].place(x=510, y=i * 30)
+    if(i == len(RUTAS.keys())-1): patata = 50+i*30
+
+for i in range(len(lbls["totals"].keys())):
+    lbls["totals"][list(lbls["totals"].keys())[i]].place(x=460+i*70, y=patata+30)
 
 # Función para calcular los resultados
 def calc_results():
+    tkm = 0
+    tl = 0
+    tcost = 0
+    tt = 0
     for i, ruta in enumerate(RUTAS.keys()):
-        try:
-            entry = int(lbls["entries"][i].get())
-            if entry < 0: raise ValueError
-            if entry != 0:
-                total_km = entry * RUTAS[ruta]["KM"]
-                total_l = entry * RUTAS[ruta]["L"]
-                total_cost = total_l * COST_PER_L
-                total_t = total_l / TANK
-                lbls["results"][i].config(text=f"{total_km} km,   {total_l} L,   ${total_cost:,.2f},   {total_t:.2f} T")
-        except ValueError:
-            print(f"Error en campo '{ruta}'")
+        corridas = int(lbls["entries"][i].get())
+        km = corridas * RUTAS[ruta]["KM"]
+        l = corridas * RUTAS[ruta]["L"]
+        cost = l * COST_PER_L
+        tanks = l / TANK
+        tkm += km
+        tl += l
+        tcost += cost
+        tt += tanks
+        lbls["results"]["km"][i].config(text=f"{km:,.2f}")
+        lbls["results"]["L"][i].config(text=f"{l:,.2f}")
+        lbls["results"]["cost"][i].config(text=f"${cost:,.2f}")
+        lbls["results"]["tanks"][i].config(text=f"{tanks:,.2f}")
+    lbls["totals"]["km"].config(text=f"{tkm:,.2f}")
+    lbls["totals"]["L"].config(text=f"{tl:,.2f}")
+    lbls["totals"]["cost"].config(text=f"${tcost:,.2f}")
+    lbls["totals"]["tanks"].config(text=f"{tt:,.2f}")
 
 # Botón calcular
 boton_calcular = tk.Button(root, text="CALCULAR")
-boton_calcular.place(x=400, y=270)
+boton_calcular.place(x=150, y=300)
 boton_calcular.config(command=calc_results)
 
 root.mainloop()

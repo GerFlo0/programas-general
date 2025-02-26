@@ -39,14 +39,14 @@ label_imagen.place(relx=0.5, rely=0.5, anchor="center")
 lbls = {"routes": [], "entries":[], "results":[]}
 
 for i, ruta in enumerate(RUTAS.keys()):
-    lbls["routes"].append(tk.Label(root, text=f"SLP a {ruta}"))
+    lbls["routes"].append(tk.Label(root, text=ruta))
     lbls["routes"][i].place(x=250, y=50 + i * 30)
     
     lbls["entries"].append(tk.Entry(root, width=5))
-    lbls["entries"][i].place(x=370, y=50 + i * 30)
+    lbls["entries"][i].place(x=340, y=50 + i * 30)
     
     lbls["results"].append(tk.Label(root, text=""))
-    lbls["results"][i].place(x=430, y=50 + i * 30)
+    lbls["results"][i].place(x=380, y=50 + i * 30)
 
 # Función para calcular los resultados
 def calc_results():
@@ -57,7 +57,6 @@ def calc_results():
             if entry != 0:
                 total_km = entry * RUTAS[ruta]["KM"]
                 total_l = entry * RUTAS[ruta]["L"]
-                total_t = total_l / TANK
                 lbls["results"][i].config(text=f"{total_km} km, {total_l} L")
         except ValueError:
             print(f"Error en campo '{ruta}'")
