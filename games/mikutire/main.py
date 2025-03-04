@@ -41,36 +41,36 @@ class CuerdaApp(GridLayout):
             relacion = float(self.relacion_input.text)
             diametro_llanta = float(self.diametro_input.text) * 2.54  # Convertir pulgadas a milímetros
             ancho_cuerda = float(self.ancho_cuerda_input.text)
-
+            
             # Funciones auxiliares
             def fun_radio(diametro_llanta, relacion):
                 return (5 * diametro_llanta / math.sqrt(100 - relacion)) * 10
-
+            
             def fun_perimetro(r):
                 return (2 * r) * math.pi
-
+            
             def fun_metros_perimetro(ancho, perimetro, ancho_cuerda):
                 return (math.ceil(ancho / ancho_cuerda) * perimetro)
-
+            
             def fun_metros_cara(radio, ancho_cuerda, suma_perimetros=0.0):
                 if radio <= 0:
                     return suma_perimetros
                 suma_perimetros += fun_perimetro(radio) / 1000
                 return fun_metros_cara(radio - ancho_cuerda, ancho_cuerda, suma_perimetros)
-
+            
             # Cálculos
             radio = fun_radio(diametro_llanta, relacion)
             perimetro = fun_perimetro(radio) / 1000
             metros_cara = fun_metros_cara(radio, ancho_cuerda)
             metros_perimetro = fun_metros_perimetro(ancho, perimetro, ancho_cuerda)
             total_cuerda = metros_cara + metros_perimetro
-
+            
             # Mostrar resultado
             popup = Popup(title="Resultado",
                         content=Label(text=f"Metros de cuerda totales requeridos: {total_cuerda:.2f}"),
                         size_hint=(0.8, 0.4))
             popup.open()
-
+            
         except ValueError:
             popup = Popup(title="Error",
                         content=Label(text="Por favor, ingrese valores numéricos válidos."),

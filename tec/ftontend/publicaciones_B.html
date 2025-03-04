@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderación de Publicaciones Nuevas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">🛑 Moderación de Publicaciones Nuevas</h2>
+
+        <!-- Filtros -->
+        <div class="card p-3 mb-3">
+            <h5>Filtrar Publicaciones</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-6 d-flex align-items-end">
+                    <button class="btn btn-primary w-100">🔍 Filtrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Publicaciones Pendientes -->
+        <div class="card p-3">
+            <h5>Publicaciones Pendientes</h5>
+            <table class="table table-bordered mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Contenido</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#2001</td>
+                        <td>@usuario1</td>
+                        <td>📸 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPublicacion1">📄 Ver Contenido</button></td>
+                        <td>
+                            <button class="btn btn-success btn-sm">✅ Aprobar</button>
+                            <button class="btn btn-danger btn-sm">❌ Rechazar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#2002</td>
+                        <td>@usuario2</td>
+                        <td>📸 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPublicacion2">📄 Ver Contenido</button></td>
+                        <td>
+                            <button class="btn btn-success btn-sm">✅ Aprobar</button>
+                            <button class="btn btn-danger btn-sm">❌ Rechazar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#2003</td>
+                        <td>@usuario3</td>
+                        <td>📸 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPublicacion3">📄 Ver Contenido</button></td>
+                        <td>
+                            <button class="btn btn-success btn-sm">✅ Aprobar</button>
+                            <button class="btn btn-danger btn-sm">❌ Rechazar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de Publicación 1 -->
+    <div class="modal fade" id="modalPublicacion1" tabindex="-1" aria-labelledby="modalPublicacion1Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPublicacion1Label">Detalles de la Publicación #2001</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>📸 Imagen Publicada</h6>
+                    <img src="https://via.placeholder.com/200" class="img-thumbnail" alt="Imagen publicada">
+
+                    <hr>
+
+                    <h6>📝 Texto de la Publicación</h6>
+                    <blockquote class="blockquote">
+                        "Esta es una publicación en revisión. Debe cumplir con las normas de la comunidad."
+                    </blockquote>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-success">✅ Aprobar</button>
+                    <button class="btn btn-danger">❌ Rechazar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales vacíos para otras publicaciones -->
+    <div class="modal fade" id="modalPublicacion2" tabindex="-1" aria-labelledby="modalPublicacion2Label" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Detalles de la Publicación #2002</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>ℹ️ Información no disponible aún.</p></div></div></div>
+    </div>
+
+    <div class="modal fade" id="modalPublicacion3" tabindex="-1" aria-labelledby="modalPublicacion3Label" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Detalles de la Publicación #2003</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>ℹ️ Información no disponible aún.</p></div></div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Intercambios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">📊 Estadísticas de Intercambios</h2>
+
+        <!-- Filtros -->
+        <div class="card p-3 mb-3">
+            <h5>Filtrar Intercambios</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select">
+                        <option value="0">Todas</option>
+                        <option value="1">Frutas</option>
+                        <option value="2">Helechos</option>
+                        <option value="3">Brotes</option>
+                        <option value="4">Insumos</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Ubicación</label>
+                    <select class="form-select">
+                        <option value="0">Todas</option>
+                        <option value="1">Ciudad A</option>
+                        <option value="2">Ciudad B</option>
+                        <option value="3">Ciudad C</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-primary w-100">🔍 Filtrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-3 mb-3">
+                    <h5>📈 Intercambios Completados</h5>
+                    <canvas id="chartIntercambios"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3 mb-3">
+                    <h5>📉 Intercambios Fallidos</h5>
+                    <canvas id="chartIntercambiosFallidos"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Intercambios -->
+        <div class="card p-3">
+            <h5>📄 Detalle de Intercambios</h5>
+            <table class="table table-bordered mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Categoría</th>
+                        <th>Ubicación</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#5001</td>
+                        <td>@usuario1</td>
+                        <td>Fruta</td>
+                        <td>Ciudad A</td>
+                        <td>2025-02-21</td>
+                        <td><span class="badge bg-success">Completado</span></td>
+                    </tr>
+                    <tr>
+                        <td>#5002</td>
+                        <td>@usuario2</td>
+                        <td>Helechos</td>
+                        <td>Ciudad B</td>
+                        <td>2025-02-19</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                    </tr>
+                    <tr>
+                        <td>#5003</td>
+                        <td>@usuario3</td>
+                        <td>Insumos</td>
+                        <td>Ciudad C</td>
+                        <td>2025-02-15</td>
+                        <td><span class="badge bg-danger">Cancelado</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Exportar datos -->
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn btn-success">📥 Exportar CSV</button>
+            <button class="btn btn-danger ms-2">📄 Exportar PDF</button>
+        </div>
+    </div>
+
+    <!-- Scripts para gráficos -->
+    <script>
+        // Gráfico de intercambios completados
+        const ctx1 = document.getElementById('chartIntercambios').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Frutas', 'Helechos', 'Brotes', 'Insumos'],
+                datasets: [{
+                    label: 'Intercambios Completados',
+                    data: [50, 30, 20, 40],
+                    backgroundColor: ['blue', 'green', 'orange', 'purple']
+                }]
+            }
+        });
+
+        // Gráfico de intercambios fallidos
+        const ctx2 = document.getElementById('chartIntercambiosFallidos').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Frutas', 'Helechos', 'Brotes', 'Insumos'],
+                datasets: [{
+                    label: 'Intercambios Fallidos',
+                    data: [10, 15, 8, 12],
+                    backgroundColor: ['red', 'darkred', 'maroon', 'brown']
+                }]
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

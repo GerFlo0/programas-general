@@ -7,7 +7,7 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
-
+import re
 #constantes
 RUTAS = {
     "Tijuana": {"KM": 2500, "L": 714},
@@ -83,35 +83,39 @@ destinos = list(RUTAS.keys())
 # Crear una variable para almacenar la opción seleccionada y el destino
 selected_bus = tk.StringVar()
 selected_destino = tk.StringVar()
-selected_bus.set("Unidad 1")  # Establecer un valor por defecto
-selected_destino.set("Tijuana")  # Establecer un valor por defecto
+selected_bus.set("Seleccione")  # Establecer un valor por defecto
+selected_destino.set("Seleccione")  # Establecer un valor por defecto
 
 def procesar_entrada():
-    unidad = selected_bus.get()
-    destino = selected_destino.get()
-    corridas = int(entry_corridas.get())
-    km = RUTAS[destino]["KM"]*corridas
-    l = km/KM_PER_L
-    costo = l*COST_PER_L
-    tanques = l/TANK
-    
-    entradas.append([unidad,destino,corridas,f"{km:,.2f}",f"{l:,.2f}",f"{costo:,.2f}",f"{tanques:,.2f}"])
-    entry_corridas.delete(0, tk.END) 
+    try:
+        if(not re.search(r'\.',entry_corridas.get())):
+            unidad = selected_bus.get()
+            destino = selected_destino.get()
+            if unidad  == "Seleccione"  or destino == "Seleccione": return None
+            corridas = int(entry_corridas.get())
+            km = RUTAS[destino]["KM"]*corridas
+            l = km/KM_PER_L
+            costo = l*COST_PER_L
+            tanques = l/TANK
+            
+            entradas.append([unidad,destino,corridas,f"{km:,.2f}",f"{l:,.2f}",f"{costo:,.2f}",f"{tanques:,.2f}"])
+            
+            selected_bus.set("Seleccione")
+            selected_destino.set("Seleccione")
+            entry_corridas.delete(0, tk.END) 
+    except: None
 
 def terminar():
-    for fila in tabla.get_children():
-        tabla.delete(fila)
+    for fila in tabla.get_children(): tabla.delete(fila)
     
-    for fila in entradas:
-            tabla.insert("", tk.END, values=fila)
+    for fila in entradas: tabla.insert("", tk.END, values=fila)
     
     entradas.clear()
 
 #crear cabecera
 header = [tk.Label(root) for i in range(len(HEADERS))]
-for i in range(len(header)): 
-    header[i].place(x=350 + 100*i, y = 30)
-    header[i].config(text=HEADERS[i])
+
+for i in range(len(header)): header[i].config(text=HEADERS[i])
 
 header[0].place(x=350,y=30)
 header[1].place(x=440,y=30)
@@ -121,8 +125,8 @@ header[2].place(x=570,y=30)
 entry_corridas = ttk.Entry(root)
 
 # Crear los OptionMenu
-menu_buses = ttk.OptionMenu(root, selected_bus, *buses)
-menu_destinos = ttk.OptionMenu(root, selected_destino, *destinos)
+menu_buses = ttk.OptionMenu(root, selected_bus, *["",*buses])
+menu_destinos = ttk.OptionMenu(root, selected_destino, *["",*destinos])
 
 # Botón para mostrar la opción seleccionada
 btn_guardar = ttk.Button(root, text="Guardar entrada", command=procesar_entrada)
